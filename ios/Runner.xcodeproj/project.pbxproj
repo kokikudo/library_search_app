@@ -364,7 +364,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = S3ZNGP43TF;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "path/to/Info-$(CONFIGURATION).plist";
+				INFOPLIST_FILE = "Runner/Info-$(CONFIGURATION).plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -518,7 +518,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = S3ZNGP43TF;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "path/to/Info-$(CONFIGURATION).plist";
+				INFOPLIST_FILE = "Runner/Info-$(CONFIGURATION).plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
