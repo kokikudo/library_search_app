@@ -2,6 +2,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // other file
 import '../widgets/library_card.dart';
@@ -45,7 +46,8 @@ class ResultScreen extends HookWidget {
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircularProgressIndicator(),
+                  SpinKitPouringHourGlassRefined(
+                      color: Theme.of(context).iconTheme.color!),
                 ],
               ),
             ),

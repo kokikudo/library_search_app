@@ -2,12 +2,24 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:library_search_app/models/freezed_models/book.dart';
 // other file
 import '../screens/home.dart';
 import '../screens/result.dart';
 import '../utils/constraints.dart';
 import '../main.dart';
 import 'library_card.dart';
+
+
+final showBookProvider =
+StateNotifierProvider<ShowBookNotifier, Book?>((ref) => ShowBookNotifier());
+
+class ShowBookNotifier extends StateNotifier<Book?> {
+  ShowBookNotifier() : super(null);
+
+  changeState(title, isbn, url) =>
+      state = Book(title: title, isbn: isbn, largeImageUrl: url);
+}
 
 class ShowBookWidget extends HookWidget {
   const ShowBookWidget({
@@ -18,6 +30,7 @@ class ShowBookWidget extends HookWidget {
   Widget build(BuildContext context) {
     final _textTheme = Theme.of(context).textTheme;
     final _isLightTheme = useProvider(isLightThemeProvider);
+    // 表示する本のプロバイダー
     final _book = useProvider(showBookProvider);
     return Neumorphic(
       margin: EdgeInsets.fromLTRB(0, 20, 0, 50),
@@ -27,12 +40,16 @@ class ShowBookWidget extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+
+            // 表示（画像のみ）
             Flexible(
               flex: 4,
               child: Image(
                 image: NetworkImage(_book!.largeImageUrl),
               ),
             ),
+
+
             Flexible(
               flex: 1,
               child: Column(

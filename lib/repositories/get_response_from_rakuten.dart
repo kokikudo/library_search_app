@@ -10,7 +10,27 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // apikey
 import '../utils/configurations.dart';
 
+// 補完機能のパッケージflutter_typeaheadとの相性が良くないのでProviderでの実装はせず普通の関数で実装した。
 final dioProvider = Provider((_) => Dio());
+final searchFromRakutenRepoProvider =
+Provider((ref) => SearchFromRakutenRepo(ref.read));
+final getBooksProvider = StateNotifierProvider<GetBooksNotifier, BookList?>(
+        (ref) => GetBooksNotifier(ref.read));
+class GetBooksNotifier extends StateNotifier<BookList?> {
+  GetBooksNotifier(this._read) : super(null);
+
+  final Reader _read;
+
+  Future<void> getBooks(title) async {
+    // 検索処理のプロバイダー
+    final repo = _read(searchFromRakutenRepoProvider);
+    // 検索
+    final response = await repo.fetchBooks(title: title);
+
+    state = response;
+  }
+}
+
 
 class SearchFromRakutenRepo {
   SearchFromRakutenRepo(this._read);
