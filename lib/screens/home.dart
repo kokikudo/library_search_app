@@ -2,9 +2,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
-// freezed models
-import '../models/freezed_models/book_list.dart';
-import '../models/freezed_models/book.dart';
 // other file
 import '../main.dart';
 import '../widgets/scan_button.dart';
@@ -12,38 +9,7 @@ import '../widgets/search_bar.dart';
 import '../utils/empty_space.dart';
 import '../widgets/empty_show_book_widget.dart';
 import '../widgets/show_book_widget.dart';
-import '../repositories/get_response_from_rakuten.dart';
 
-final searchFromRakutenRepoProvider =
-    Provider((ref) => SearchFromRakutenRepo(ref.read));
-
-final getBooksProvider = StateNotifierProvider<GetBooksNotifier, BookList?>(
-    (ref) => GetBooksNotifier(ref.read));
-
-class GetBooksNotifier extends StateNotifier<BookList?> {
-  GetBooksNotifier(this._read) : super(null);
-
-  final Reader _read;
-
-  Future<void> getBooks(title) async {
-    // 検索処理のプロバイダー
-    final repo = _read(searchFromRakutenRepoProvider);
-    // 検索
-    final response = await repo.fetchBooks(title: title);
-
-    state = response;
-  }
-}
-
-final showBookProvider =
-    StateNotifierProvider<ShowBookNotifier, Book?>((ref) => ShowBookNotifier());
-
-class ShowBookNotifier extends StateNotifier<Book?> {
-  ShowBookNotifier() : super(null);
-
-  changeState(title, isbn, url) =>
-      state = Book(title: title, isbn: isbn, largeImageUrl: url);
-}
 
 class HomeScreen extends HookWidget {
   const HomeScreen({Key? key}) : super(key: key);
