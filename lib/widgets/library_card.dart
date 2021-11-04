@@ -13,40 +13,29 @@ import '../models/freezed_models/show_library.dart';
 import '../repositories/get_show_library.dart';
 
 // other file
-import '../screens/result.dart';
 import '../utils/constraints.dart';
 import '../utils/empty_space.dart';
 import '../utils/url_launch.dart';
 
-final cancelTokenProvider = Provider((_) => CancelToken());
+final isbnProvider =
+    StateNotifierProvider<ISBNNotifier, String>((_) => ISBNNotifier());
 
-final getShowLibraryProvider = StateNotifierProvider.autoDispose<
-    GetShowLibraryNotifier, AsyncValue<List<ShowLibrary>>>((ref) {
-  final cancelToken = ref.read(cancelTokenProvider);
-  ref.onDispose(() {
-    cancelToken.cancel();
-    print('検索を中断しました。');
-  });
-  return GetShowLibraryNotifier(ref.read);
-});
+class ISBNNotifier extends StateNotifier<String> {
+  ISBNNotifier() : super('');
 
-class GetShowLibraryNotifier
-    extends StateNotifier<AsyncValue<List<ShowLibrary>>> {
-  GetShowLibraryNotifier(this._read) : super(const AsyncValue.loading());
-
-  final Reader _read;
-
-  Future<void> changeState(String isbn) async {
-    final _cancelToken = _read(cancelTokenProvider);
-    state = const AsyncValue.loading();
-    final _repo = GetShowLibraryRepo(_read, isbn, _cancelToken);
-    try {
-      state = await _repo.getShowLibrary();
-    } on Exception catch (error) {
-      state = AsyncValue.error(error);
-    }
-  }
+  void changeState(newIsbn) => state = newIsbn;
 }
+
+final getLibraryProvider =
+    FutureProvider.autoDispose<List<ShowLibrary>>((ref) async {
+  final _cancelToken = CancelToken();
+  ref.onDispose(() => _cancelToken.cancel());
+  final _isbn = ref.watch(isbnProvider);
+  final _repo = GetShowLibraryRepo(ref.read, _isbn, _cancelToken);
+  final _result = await _repo.getShowLibrary();
+  ref.maintainState = true;
+  return _result;
+});
 
 class LibraryCard extends HookWidget {
   const LibraryCard({

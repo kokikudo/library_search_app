@@ -51,6 +51,7 @@ class GetShowLibraryRepo {
     _libList = response.data!
         .map((bookData) => Library.fromJson(bookData as Map<String, dynamic>))
         .toList();
+
   }
 
   void _getSystemIdQuery() {
@@ -75,7 +76,7 @@ class GetShowLibraryRepo {
         token: _token);
 
     while (response.isOK == 1) {
-      print('continue = 1 のため再取得開始');
+      print('再取得開始');
       await Future.delayed(const Duration(seconds: 3));
       response = await _getResponse(session: response.session, token: _token);
     }
@@ -107,7 +108,7 @@ class GetShowLibraryRepo {
     return LibraryHasBookData.fromJson(result.data!);
   }
 
-  Future<AsyncValue<List<ShowLibrary>>> getShowLibrary() async {
+  Future<List<ShowLibrary>> getShowLibrary() async {
     // 最終的に表示させる図書館のモデルリスト
     List<ShowLibrary> showLibraries = [];
     // ロードが完了したレスポンスデータを取得
@@ -142,6 +143,6 @@ class GetShowLibraryRepo {
         });
       }
     });
-    return AsyncValue.data(showLibraries);
+    return showLibraries;
   }
 }
