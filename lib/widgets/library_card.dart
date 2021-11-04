@@ -195,17 +195,6 @@ class LibStatusWidgetBar extends StatelessWidget {
           ),
           LibStatusWidget(
             textTheme: textTheme,
-            statusName: '図書館の種類',
-            status: lib.category,
-          ),
-          VerticalDivider(
-            color: kcBrown,
-            thickness: 1,
-            indent: 5,
-            endIndent: 5,
-          ),
-          LibStatusWidget(
-            textTheme: textTheme,
             statusName: 'ここから',
             status: lib.distance.toStringAsFixed(1),
           ),
@@ -230,6 +219,8 @@ class LibStatusWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _isLightTheme = useProvider(isLightThemeProvider);
+    final _normalColor = _isLightTheme ? kcBrown : kcWhite;
+    final _accentColor = _isLightTheme ? kcPink : kcLightBlue;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -237,13 +228,20 @@ class LibStatusWidget extends HookWidget {
           statusName,
           style: textTheme.caption,
         ),
-        Text(
-          status,
-          style: textTheme.bodyText1!.copyWith(
-            fontWeight: FontWeight.bold,
-            color: _isLightTheme ? kcPink : kcLightBlue,
-          ),
-        ),
+        statusName == 'ここから'
+            ? Text(
+                '$status km',
+                style: textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : Text(
+                status,
+                style: textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: status == '貸出可' ? _accentColor : _normalColor,
+                ),
+              )
       ],
     );
   }
