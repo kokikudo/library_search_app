@@ -31,7 +31,7 @@ class EmptyShowBookWidget extends HookWidget {
             Flexible(
               flex: 2,
               child: Text(
-                  '本のタイトルから調べたい本を検索できます。\nバーコード検索(本の背面にある978から始まる番号のバーコード)もできます。'),
+                  '本のタイトルを入力してください。'),
             ),
           ],
         ),
