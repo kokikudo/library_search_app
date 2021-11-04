@@ -19,7 +19,6 @@ class ShowBookWidget extends HookWidget {
     final _textTheme = Theme.of(context).textTheme;
     final _isLightTheme = useProvider(isLightThemeProvider);
     final _book = useProvider(showBookProvider);
-    final _showLibrary = useProvider(getShowLibraryProvider);
     return Neumorphic(
       margin: EdgeInsets.fromLTRB(0, 20, 0, 50),
       child: Padding(
@@ -57,7 +56,7 @@ class ShowBookWidget extends HookWidget {
               child: NeumorphicButton(
                 onPressed: () {
                   context
-                      .read(getShowLibraryProvider.notifier)
+                      .read(isbnProvider.notifier)
                       .changeState(_book.isbn);
                   Navigator.push(
                     context,

@@ -14,7 +14,7 @@ class ResultScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _showLibrary = useProvider(getShowLibraryProvider);
+    final _showLibrary = useProvider(getLibraryProvider);
     final _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: NeumorphicAppBar(
@@ -23,7 +23,10 @@ class ResultScreen extends HookWidget {
       body: SafeArea(
         child: _showLibrary.when(
           data: (libs) => libs.isEmpty
-              ? Column(
+              ? Center(
+                  child: Text('周辺の図書館にはありませんでした。'),
+                )
+              : Column(
                   children: [
                     Expanded(
                       child: ListView(
@@ -34,9 +37,6 @@ class ResultScreen extends HookWidget {
                       ),
                     ),
                   ],
-                )
-              : Center(
-                  child: Text('周辺の図書館にはありませんでした。'),
                 ),
           loading: () => Center(
             child: SizedBox(
