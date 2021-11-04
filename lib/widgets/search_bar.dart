@@ -1,9 +1,12 @@
+// package
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:library_search_app/models/freezed_models/book.dart';
-import 'package:library_search_app/screens/home.dart';
+// freezed
+import '../models/freezed_models/book.dart';
+// other file
+import '../screens/home.dart';
 import '../utils/constraints.dart';
 import '../main.dart';
 

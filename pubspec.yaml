@@ -14,16 +14,14 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
-
+  geolocator: ^7.6.2
   hooks_riverpod: ^0.14.0+5
   flutter_hooks: ^0.18.0
   freezed_annotation: ^0.14.0
   json_annotation: ^4.3.0
   flutter_typeahead: ^3.2.1
   expandable: ^5.0.1
-  flutter_neumorphic:
-    git:
-      url: "https://github.com/alionour/Flutter-Neumorphic"
+  url_launcher: ^6.0.12
   flutter_neumorphic_null_safety: ^3.2.4
 
 

@@ -11,7 +11,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../utils/configurations.dart';
 
 final dioProvider = Provider((_) => Dio());
-final repositoryProvider = Provider((ref) => SearchFromRakutenRepo(ref.read));
 
 class SearchFromRakutenRepo {
   SearchFromRakutenRepo(this._read);

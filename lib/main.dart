@@ -2,9 +2,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
-
-// freezed
-
 //other file
 import 'screens/home.dart';
 import 'utils/constraints.dart';
@@ -19,9 +16,10 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
 }
 
 ///TODO
-///検索処理を実装する
-///モデルクラスファイル作成
-///
+///インジケータ
+///検索中にpopするとロードキャンセル
+///貸出可の時だけテキストの色を変える
+///_element!.dirty: Bad stateの解決
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }

@@ -1,4 +1,4 @@
-//Library
+// package
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
@@ -14,10 +14,11 @@ import '../widgets/empty_show_book_widget.dart';
 import '../widgets/show_book_widget.dart';
 import '../repositories/get_response_from_rakuten.dart';
 
+final searchFromRakutenRepoProvider =
+    Provider((ref) => SearchFromRakutenRepo(ref.read));
 
-final getBooksProvider =
-StateNotifierProvider<GetBooksNotifier, BookList?>(
-        (ref) => GetBooksNotifier(ref.read));
+final getBooksProvider = StateNotifierProvider<GetBooksNotifier, BookList?>(
+    (ref) => GetBooksNotifier(ref.read));
 
 class GetBooksNotifier extends StateNotifier<BookList?> {
   GetBooksNotifier(this._read) : super(null);
@@ -25,19 +26,17 @@ class GetBooksNotifier extends StateNotifier<BookList?> {
   final Reader _read;
 
   Future<void> getBooks(title) async {
-
     // 検索処理のプロバイダー
-    final repo = _read(repositoryProvider);
+    final repo = _read(searchFromRakutenRepoProvider);
     // 検索
-    final response =
-    await repo.fetchBooks(title: title);
+    final response = await repo.fetchBooks(title: title);
 
     state = response;
   }
 }
 
 final showBookProvider =
-StateNotifierProvider<ShowBookNotifier, Book?>((ref) => ShowBookNotifier());
+    StateNotifierProvider<ShowBookNotifier, Book?>((ref) => ShowBookNotifier());
 
 class ShowBookNotifier extends StateNotifier<Book?> {
   ShowBookNotifier() : super(null);
@@ -45,7 +44,6 @@ class ShowBookNotifier extends StateNotifier<Book?> {
   changeState(title, isbn, url) =>
       state = Book(title: title, isbn: isbn, largeImageUrl: url);
 }
-
 
 class HomeScreen extends HookWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,7 +56,8 @@ class HomeScreen extends HookWidget {
         title: Text('本を検索'),
         actions: [
           IconButton(
-            onPressed: () => context.read(isLightThemeProvider.notifier).changeTheme(),
+            onPressed: () =>
+                context.read(isLightThemeProvider.notifier).changeTheme(),
             icon: Icon(Icons.brightness_6),
           ),
         ],
@@ -87,7 +86,9 @@ class HomeScreen extends HookWidget {
                 ),
               ),
               Expanded(
-                child: _bookStatus == null ? EmptyShowBookWidget() : ShowBookWidget(),
+                child: _bookStatus == null
+                    ? EmptyShowBookWidget()
+                    : ShowBookWidget(),
               ),
             ],
           ),

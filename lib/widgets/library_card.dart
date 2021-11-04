@@ -1,20 +1,60 @@
+// package
+import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
-//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
-import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// freezed
+import '../main.dart';
+import '../models/freezed_models/show_library.dart';
+
+// repo
+import '../repositories/get_show_library.dart';
+
+// other file
 import '../screens/result.dart';
 import '../utils/constraints.dart';
 import '../utils/empty_space.dart';
+import '../utils/url_launch.dart';
 
-/// 展開するとWidgetの両端が切れて表示されてしまう。
-///　デザインが一通り終わったら再度対処する。
-class LibraryCard extends StatelessWidget {
+final cancelTokenProvider = Provider((_) => CancelToken());
+
+final getShowLibraryProvider = StateNotifierProvider.autoDispose<
+    GetShowLibraryNotifier, AsyncValue<List<ShowLibrary>>>((ref) {
+  final cancelToken = ref.read(cancelTokenProvider);
+  ref.onDispose(() {
+    cancelToken.cancel();
+    print('検索を中断しました。');
+  });
+  return GetShowLibraryNotifier(ref.read);
+});
+
+class GetShowLibraryNotifier
+    extends StateNotifier<AsyncValue<List<ShowLibrary>>> {
+  GetShowLibraryNotifier(this._read) : super(const AsyncValue.loading());
+
+  final Reader _read;
+
+  Future<void> changeState(String isbn) async {
+    final _cancelToken = _read(cancelTokenProvider);
+    state = const AsyncValue.loading();
+    final _repo = GetShowLibraryRepo(_read, isbn, _cancelToken);
+    try {
+      state = await _repo.getShowLibrary();
+    } on Exception catch (error) {
+      state = AsyncValue.error(error);
+    }
+  }
+}
+
+class LibraryCard extends HookWidget {
   const LibraryCard({
     Key? key,
     required this.lib,
   }) : super(key: key);
 
-  final Library lib;
+  final ShowLibrary lib;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +80,7 @@ class LibraryCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 addVerticalEmptySpace(20),
-                LibStatusWidgetBar(),
+                LibStatusWidgetBar(lib: lib),
                 addVerticalEmptySpace(10),
                 Icon(Icons.expand_more),
               ],
@@ -56,7 +96,7 @@ class LibraryCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 addVerticalEmptySpace(20),
-                LibStatusWidgetBar(),
+                LibStatusWidgetBar(lib: lib),
                 addVerticalEmptySpace(20),
                 Text(
                   '〒${lib.post}\n${lib.address}',
@@ -66,11 +106,13 @@ class LibraryCard extends StatelessWidget {
                 ButtonInLibCard(
                   text: 'Google Map',
                   icon: Icon(Icons.map),
+                  lib: lib,
                 ),
                 addVerticalEmptySpace(20),
                 ButtonInLibCard(
                   text: '図書館ホームページ',
                   icon: Icon(Icons.logout),
+                  lib: lib,
                 ),
                 addVerticalEmptySpace(20),
               ],
@@ -98,14 +140,20 @@ class ButtonInLibCard extends StatelessWidget {
     Key? key,
     required this.text,
     required this.icon,
+    required this.lib,
   }) : super(key: key);
 
   final String text;
   final Icon icon;
+  final ShowLibrary lib;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final latitude = lib.geocode.split(',')[0];
+    final longitude = lib.geocode.split(',')[1];
+    final urlToGoogleMap =
+        'https://www.google.com/maps/search/?api=1&query=$longitude,$latitude';
     return NeumorphicButton(
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -121,9 +169,9 @@ class ButtonInLibCard extends StatelessWidget {
       ),
       onPressed: () {
         if (icon.icon == Icons.map) {
-          ///TODO GoogleMapに飛ぶ
+          launchURL(urlToGoogleMap);
         } else {
-          ///TODO 予約サイトに飛ぶ
+          launchURL(lib.bookPageUrl);
         }
       },
     );
@@ -133,19 +181,22 @@ class ButtonInLibCard extends StatelessWidget {
 class LibStatusWidgetBar extends StatelessWidget {
   const LibStatusWidgetBar({
     Key? key,
+    required this.lib,
   }) : super(key: key);
+
+  final ShowLibrary lib;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return IntrinsicHeight(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           LibStatusWidget(
             textTheme: textTheme,
             statusName: '貸出状況',
-            status: '貸出可',
+            status: lib.status,
           ),
           VerticalDivider(
             color: kcBrown,
@@ -155,8 +206,8 @@ class LibStatusWidgetBar extends StatelessWidget {
           ),
           LibStatusWidget(
             textTheme: textTheme,
-            statusName: '図書館の規模',
-            status: '大きい',
+            statusName: '図書館の種類',
+            status: lib.category,
           ),
           VerticalDivider(
             color: kcBrown,
@@ -167,7 +218,7 @@ class LibStatusWidgetBar extends StatelessWidget {
           LibStatusWidget(
             textTheme: textTheme,
             statusName: 'ここから',
-            status: '10km',
+            status: lib.distance.toStringAsFixed(1),
           ),
         ],
       ),
@@ -175,7 +226,7 @@ class LibStatusWidgetBar extends StatelessWidget {
   }
 }
 
-class LibStatusWidget extends StatelessWidget {
+class LibStatusWidget extends HookWidget {
   const LibStatusWidget({
     Key? key,
     required this.textTheme,
@@ -189,6 +240,7 @@ class LibStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _isLightTheme = useProvider(isLightThemeProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -198,10 +250,9 @@ class LibStatusWidget extends StatelessWidget {
         ),
         Text(
           status,
-
-          ///TODO 『貸出可』の時のみ文字の色を変更
           style: textTheme.bodyText1!.copyWith(
             fontWeight: FontWeight.bold,
+            color: _isLightTheme ? kcPink : kcLightBlue,
           ),
         ),
       ],

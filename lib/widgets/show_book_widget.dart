@@ -1,12 +1,13 @@
+//Library
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:library_search_app/screens/home.dart';
-import 'package:library_search_app/screens/result.dart';
-import 'package:library_search_app/utils/constraints.dart';
+// other file
+import '../screens/home.dart';
+import '../screens/result.dart';
+import '../utils/constraints.dart';
 import '../main.dart';
+import 'library_card.dart';
 
 class ShowBookWidget extends HookWidget {
   const ShowBookWidget({
@@ -18,6 +19,7 @@ class ShowBookWidget extends HookWidget {
     final _textTheme = Theme.of(context).textTheme;
     final _isLightTheme = useProvider(isLightThemeProvider);
     final _book = useProvider(showBookProvider);
+    final _showLibrary = useProvider(getShowLibraryProvider);
     return Neumorphic(
       margin: EdgeInsets.fromLTRB(0, 20, 0, 50),
       child: Padding(
@@ -53,12 +55,17 @@ class ShowBookWidget extends HookWidget {
             Flexible(
               flex: 1,
               child: NeumorphicButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ResultScreen(),
-                  ),
-                ),
+                onPressed: () {
+                  context
+                      .read(getShowLibraryProvider.notifier)
+                      .changeState(_book.isbn);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultScreen(),
+                    ),
+                  );
+                },
                 child: Text('検索する',
                     style: _textTheme.button!.copyWith(
                       color: _isLightTheme ? kcBeige : kcBlue,
