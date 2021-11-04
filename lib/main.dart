@@ -18,9 +18,8 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
 
 ///TODO
 ///インジケータ
-///検索中にpopするとロードキャンセル
 ///貸出可の時だけテキストの色を変える
-///_element!.dirty: Bad stateの解決
+///_element!.dirty: Bad stateの解決　＝＞質問中
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
