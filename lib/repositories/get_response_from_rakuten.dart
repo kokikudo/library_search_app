@@ -11,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../utils/configurations.dart';
 
 // 補完機能のパッケージflutter_typeaheadとの相性が良くないのでProviderでの実装はせず普通の関数で実装した。
+///TODO 不要ならファイルごと削除すること
 final dioProvider = Provider((_) => Dio());
 final searchFromRakutenRepoProvider =
 Provider((ref) => SearchFromRakutenRepo(ref.read));

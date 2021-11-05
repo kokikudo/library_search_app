@@ -17,8 +17,8 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
 }
 
 ///TODO
-///インジケータ
-///貸出可の時だけテキストの色を変える
+///カテゴリ実装
+///スプラッシュスクリーン作成
 ///_element!.dirty: Bad stateの解決　＝＞質問中
 void main() {
   runApp(const ProviderScope(child: MyApp()));

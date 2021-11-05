@@ -99,8 +99,8 @@ class LibraryCard extends HookWidget {
                 ),
                 addVerticalEmptySpace(20),
                 ButtonInLibCard(
-                  text: '図書館ホームページ',
-                  icon: Icon(Icons.logout),
+                  text: '予約サイトに移動',
+                  icon: Icon(Icons.launch),
                   lib: lib,
                 ),
                 addVerticalEmptySpace(20),

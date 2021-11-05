@@ -1,8 +1,11 @@
 //Library
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:library_search_app/models/freezed_models/book.dart';
+import 'package:library_search_app/utils/empty_space.dart';
+
 // other file
 import '../screens/home.dart';
 import '../screens/result.dart';
@@ -11,70 +14,57 @@ import '../main.dart';
 import 'library_card.dart';
 
 
-final showBookProvider =
-StateNotifierProvider<ShowBookNotifier, Book?>((ref) => ShowBookNotifier());
-
-class ShowBookNotifier extends StateNotifier<Book?> {
-  ShowBookNotifier() : super(null);
-
-  changeState(title, isbn, url) =>
-      state = Book(title: title, isbn: isbn, largeImageUrl: url);
-}
 
 class ShowBookWidget extends HookWidget {
   const ShowBookWidget({
-    Key? key,
+    Key? key, required this.book
   }) : super(key: key);
+
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
     final _textTheme = Theme.of(context).textTheme;
     final _isLightTheme = useProvider(isLightThemeProvider);
     // 表示する本のプロバイダー
-    final _book = useProvider(showBookProvider);
     return Neumorphic(
       margin: EdgeInsets.fromLTRB(0, 20, 0, 50),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
             // 表示（画像のみ）
             Flexible(
-              flex: 4,
+              flex: 2,
               child: Image(
-                image: NetworkImage(_book!.largeImageUrl),
+                image: NetworkImage(book.largeImageUrl),fit: BoxFit.contain,
               ),
             ),
 
-
             Flexible(
               flex: 1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  NeumorphicButton(
-                    child: Text(
+              child: NeumorphicButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
                       '本の詳細を見る',
-                      style: _textTheme.button,
-                      textAlign: TextAlign.center,
+                      style: _textTheme.button
                     ),
-                    onPressed: () {},
-                  ),
-                  Text('カーネル公式サイトへ移動',
-                      style: _textTheme.caption, textAlign: TextAlign.end),
-                ],
+                    addHorizonEmptySpace(10),
+                    Icon(Icons.launch),
+                  ],
+                ),
+                onPressed: () {},
               ),
             ),
             Flexible(
               flex: 1,
               child: NeumorphicButton(
                 onPressed: () {
-                  context
-                      .read(isbnProvider.notifier)
-                      .changeState(_book.isbn);
+                  context.read(isbnProvider.notifier).changeState(book.isbn);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
