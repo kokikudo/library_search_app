@@ -30,8 +30,11 @@ class GetShowLibraryRepo {
 
   Future<void> _getLibFromPosition() async {
     await _getLocation();
-    final latitude = _position.latitude;
-    final longitude = _position.longitude;
+    // final latitude = _position.latitude;
+    // final longitude = _position.longitude;
+
+    final latitude = 35.5640187;
+    final longitude = 139.3868953;
 
     // DioでAPIにリクエスト
     const url = 'https://api.calil.jp/library';
