@@ -220,7 +220,7 @@ class LibStatusWidget extends HookWidget {
   Widget build(BuildContext context) {
     final _isLightTheme = useProvider(isLightThemeProvider);
     final _normalColor = _isLightTheme ? kcBrown : kcWhite;
-    final _accentColor = _isLightTheme ? kcPink : kcLightBlue;
+    final _accentColor = _isLightTheme ? kcRed : kcPink;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

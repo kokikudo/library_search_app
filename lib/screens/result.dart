@@ -1,9 +1,11 @@
 // package
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_search_app/models/freezed_models/show_library.dart';
+import 'package:library_search_app/utils/empty_space.dart';
 
 // other file
 import '../widgets/library_card.dart';
@@ -19,8 +21,9 @@ enum ShowLibraryFilter {
 
 //final showLibraryFilerProvider = StateProvider((_) => ShowLibraryFilter.all);
 
-final showLibraryFilerProvider = StateNotifierProvider<ShowLibraryFilterNotifier, ShowLibraryFilter>((
-    _) => ShowLibraryFilterNotifier());
+final showLibraryFilerProvider =
+    StateNotifierProvider<ShowLibraryFilterNotifier, ShowLibraryFilter>(
+        (_) => ShowLibraryFilterNotifier());
 
 class ShowLibraryFilterNotifier extends StateNotifier<ShowLibraryFilter> {
   ShowLibraryFilterNotifier() : super(ShowLibraryFilter.all);
@@ -56,7 +59,11 @@ class ResultScreen extends HookWidget {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: NeumorphicAppBar(
-        title: Text('検索結果'),
+        title: _showLibrary.when(
+          data: (_) => Text('検索結果'),
+          loading: () => Text(''),
+          error: (_, stack) => Text('検索結果'),
+        ),
       ),
       body: SafeArea(
         child: _showLibrary.when(
@@ -76,20 +83,21 @@ class ResultScreen extends HookWidget {
                     ),
                   ],
                 ),
-          loading: () => Center(
-            child: SizedBox(
-              width: _size.width / 4,
-              height: _size.height / 4,
-              child: Column(
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SpinKitPouringHourGlassRefined(
-                      color: Theme.of(context).iconTheme.color!),
-                ],
-              ),
-            ),
+          loading: () => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SpinKitPouringHourGlassRefined(
+                  size: 100, color: Theme.of(context).iconTheme.color!),
+              addVerticalEmptySpace(20),
+              Text('検索中...', style: Theme.of(context).textTheme.headline5),
+              addVerticalEmptySpace(10),
+              Text('少し時間がかかる場合がございます。'),
+            ],
           ),
-          error: (err, stack) => Text('Error $err'),
+          error: (err, stack) => Center(
+            child: Text('エラーが発生しました。時間をおいて再度お試しください。'),
+          ),
         ),
       ),
     );
