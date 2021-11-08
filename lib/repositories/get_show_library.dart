@@ -2,12 +2,15 @@
 import '../models/freezed_models/show_library.dart';
 import '../models/freezed_models/libraryHasBookData.dart';
 import '../models/freezed_models/library.dart';
+
 // repo
 import '../repositories/get_response_from_rakuten.dart';
+
 // package
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
+
 // apikey and searchLibraryCount
 import '../utils/configurations.dart';
 
@@ -32,7 +35,7 @@ class GetShowLibraryRepo {
     await _getLocation();
     // final latitude = _position.latitude;
     // final longitude = _position.longitude;
-
+    ///TODO 動作確認が終わり次第上のコードに戻す
     final latitude = 35.5640187;
     final longitude = 139.3868953;
 
@@ -54,7 +57,6 @@ class GetShowLibraryRepo {
     _libList = response.data!
         .map((bookData) => Library.fromJson(bookData as Map<String, dynamic>))
         .toList();
-
   }
 
   void _getSystemIdQuery() {
@@ -146,6 +148,7 @@ class GetShowLibraryRepo {
         });
       }
     });
+    showLibraries.sort((a, b) => a.distance.compareTo(b.distance));
     return showLibraries;
   }
 }

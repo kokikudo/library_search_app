@@ -57,6 +57,7 @@ class ShowBookWidget extends HookWidget {
                     Icon(Icons.launch),
                   ],
                 ),
+                ///TODO 詳細ページに移動する処理
                 onPressed: () {},
               ),
             ),
