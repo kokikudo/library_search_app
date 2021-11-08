@@ -1,6 +1,7 @@
 // package
 import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -92,17 +93,24 @@ class LibraryCard extends HookWidget {
                   textAlign: TextAlign.start,
                 ),
                 addVerticalEmptySpace(20),
+
                 ButtonInLibCard(
                   text: 'Google Map',
                   icon: Icon(Icons.map),
                   lib: lib,
                 ),
                 addVerticalEmptySpace(20),
-                ButtonInLibCard(
-                  text: '予約サイトに移動',
-                  icon: Icon(Icons.launch),
-                  lib: lib,
-                ),
+                lib.bookPageUrl == ''
+                    ? Text(
+                        '本の予約ページが見つかりませんでした。',
+                        textAlign: TextAlign.center,
+                        style: textTheme.caption,
+                      )
+                    : ButtonInLibCard(
+                        text: '予約サイトに移動',
+                        icon: Icon(Icons.launch),
+                        lib: lib,
+                      ),
                 addVerticalEmptySpace(20),
               ],
             ),
@@ -142,7 +150,7 @@ class ButtonInLibCard extends StatelessWidget {
     final latitude = lib.geocode.split(',')[0];
     final longitude = lib.geocode.split(',')[1];
     final urlToGoogleMap =
-        'https://www.google.com/maps/search/?api=1&query=$longitude,$latitude';
+        'https://www.google.com/maps/search/?api=1&query=$longitude%2C$latitude';
     return NeumorphicButton(
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Row(

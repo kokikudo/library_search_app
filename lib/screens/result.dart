@@ -77,6 +77,7 @@ class ResultScreen extends HookWidget {
                       child: ListView(
                         physics: BouncingScrollPhysics(),
                         children: libs.map((lib) {
+                          print(lib.bookPageUrl);
                           return LibraryCard(lib: lib);
                         }).toList(),
                       ),
@@ -104,7 +105,8 @@ class ResultScreen extends HookWidget {
   }
 }
 
-/// カテゴリのWidgets。
+///TODO カテゴリのWidgets。
+///元々のShowLibraryのリストの順番を距離の近い順にして表示する
 // Wrap(spacing: 10, children: [
 //   ChoiceChip(
 //     label: Text('貸出可'),

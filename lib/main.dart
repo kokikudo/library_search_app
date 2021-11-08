@@ -16,10 +16,7 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
   void changeTheme() => state = !state;
 }
 
-///TODO
-///カテゴリ実装
-///スプラッシュスクリーン作成
-///_element!.dirty: Bad stateの解決　＝＞質問中
+///TODO スプラッシュスクリーン作成
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
