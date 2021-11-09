@@ -13,16 +13,23 @@ import '../widgets/show_book_widget.dart';
 import '../models/freezed_models/book.dart';
 
 final showBookProvider =
-StateNotifierProvider<ShowBookNotifier, Book>((ref) => ShowBookNotifier());
+    StateNotifierProvider<ShowBookNotifier, Book>((ref) => ShowBookNotifier());
 
 class ShowBookNotifier extends StateNotifier<Book> {
   ShowBookNotifier()
       : super(
-    Book(title: 'no item', isbn: '', largeImageUrl: ''),
-  );
+          Book(
+              title: '',
+              subTitle: '',
+              author: '',
+              isbn: '',
+              salesDate: '',
+              publisherName: '',
+              itemCaption: '',
+              largeImageUrl: ''),
+        );
 
-  changeState(title, isbn, url) =>
-      state = Book(title: title, isbn: isbn, largeImageUrl: url);
+  changeState(newBook) => state = newBook;
 }
 
 class HomeScreen extends HookWidget {
@@ -52,9 +59,9 @@ class HomeScreen extends HookWidget {
               addVerticalEmptySpace(10),
               TitleSearchBar(),
               Expanded(
-                child: _showBook.title == 'no item'
+                child: _showBook.title.isEmpty
                     ? EmptyShowBookWidget()
-                    : ShowBookWidget(book: _showBook),
+                    : ShowBookWidget(),
               ),
             ],
           ),

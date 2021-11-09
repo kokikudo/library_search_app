@@ -25,7 +25,8 @@ class _$ShowLibraryTearOff {
       required String category,
       required double distance,
       required String geocode,
-      required String bookPageUrl}) {
+      required String bookPageUrl,
+      required String libPageUrl}) {
     return _ShowLibrary(
       name: name,
       address: address,
@@ -35,6 +36,7 @@ class _$ShowLibraryTearOff {
       distance: distance,
       geocode: geocode,
       bookPageUrl: bookPageUrl,
+      libPageUrl: libPageUrl,
     );
   }
 }
@@ -52,6 +54,7 @@ mixin _$ShowLibrary {
   double get distance => throw _privateConstructorUsedError;
   String get geocode => throw _privateConstructorUsedError;
   String get bookPageUrl => throw _privateConstructorUsedError;
+  String get libPageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShowLibraryCopyWith<ShowLibrary> get copyWith =>
@@ -71,7 +74,8 @@ abstract class $ShowLibraryCopyWith<$Res> {
       String category,
       double distance,
       String geocode,
-      String bookPageUrl});
+      String bookPageUrl,
+      String libPageUrl});
 }
 
 /// @nodoc
@@ -92,6 +96,7 @@ class _$ShowLibraryCopyWithImpl<$Res> implements $ShowLibraryCopyWith<$Res> {
     Object? distance = freezed,
     Object? geocode = freezed,
     Object? bookPageUrl = freezed,
+    Object? libPageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -126,6 +131,10 @@ class _$ShowLibraryCopyWithImpl<$Res> implements $ShowLibraryCopyWith<$Res> {
           ? _value.bookPageUrl
           : bookPageUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      libPageUrl: libPageUrl == freezed
+          ? _value.libPageUrl
+          : libPageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -145,7 +154,8 @@ abstract class _$ShowLibraryCopyWith<$Res>
       String category,
       double distance,
       String geocode,
-      String bookPageUrl});
+      String bookPageUrl,
+      String libPageUrl});
 }
 
 /// @nodoc
@@ -168,6 +178,7 @@ class __$ShowLibraryCopyWithImpl<$Res> extends _$ShowLibraryCopyWithImpl<$Res>
     Object? distance = freezed,
     Object? geocode = freezed,
     Object? bookPageUrl = freezed,
+    Object? libPageUrl = freezed,
   }) {
     return _then(_ShowLibrary(
       name: name == freezed
@@ -202,6 +213,10 @@ class __$ShowLibraryCopyWithImpl<$Res> extends _$ShowLibraryCopyWithImpl<$Res>
           ? _value.bookPageUrl
           : bookPageUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      libPageUrl: libPageUrl == freezed
+          ? _value.libPageUrl
+          : libPageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -217,7 +232,8 @@ class _$_ShowLibrary with DiagnosticableTreeMixin implements _ShowLibrary {
       required this.category,
       required this.distance,
       required this.geocode,
-      required this.bookPageUrl});
+      required this.bookPageUrl,
+      required this.libPageUrl});
 
   @override
   final String name;
@@ -235,10 +251,12 @@ class _$_ShowLibrary with DiagnosticableTreeMixin implements _ShowLibrary {
   final String geocode;
   @override
   final String bookPageUrl;
+  @override
+  final String libPageUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ShowLibrary(name: $name, address: $address, post: $post, status: $status, category: $category, distance: $distance, geocode: $geocode, bookPageUrl: $bookPageUrl)';
+    return 'ShowLibrary(name: $name, address: $address, post: $post, status: $status, category: $category, distance: $distance, geocode: $geocode, bookPageUrl: $bookPageUrl, libPageUrl: $libPageUrl)';
   }
 
   @override
@@ -253,7 +271,8 @@ class _$_ShowLibrary with DiagnosticableTreeMixin implements _ShowLibrary {
       ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('distance', distance))
       ..add(DiagnosticsProperty('geocode', geocode))
-      ..add(DiagnosticsProperty('bookPageUrl', bookPageUrl));
+      ..add(DiagnosticsProperty('bookPageUrl', bookPageUrl))
+      ..add(DiagnosticsProperty('libPageUrl', libPageUrl));
   }
 
   @override
@@ -280,7 +299,10 @@ class _$_ShowLibrary with DiagnosticableTreeMixin implements _ShowLibrary {
                     .equals(other.geocode, geocode)) &&
             (identical(other.bookPageUrl, bookPageUrl) ||
                 const DeepCollectionEquality()
-                    .equals(other.bookPageUrl, bookPageUrl)));
+                    .equals(other.bookPageUrl, bookPageUrl)) &&
+            (identical(other.libPageUrl, libPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.libPageUrl, libPageUrl)));
   }
 
   @override
@@ -293,7 +315,8 @@ class _$_ShowLibrary with DiagnosticableTreeMixin implements _ShowLibrary {
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(distance) ^
       const DeepCollectionEquality().hash(geocode) ^
-      const DeepCollectionEquality().hash(bookPageUrl);
+      const DeepCollectionEquality().hash(bookPageUrl) ^
+      const DeepCollectionEquality().hash(libPageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -310,7 +333,8 @@ abstract class _ShowLibrary implements ShowLibrary {
       required String category,
       required double distance,
       required String geocode,
-      required String bookPageUrl}) = _$_ShowLibrary;
+      required String bookPageUrl,
+      required String libPageUrl}) = _$_ShowLibrary;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -328,6 +352,8 @@ abstract class _ShowLibrary implements ShowLibrary {
   String get geocode => throw _privateConstructorUsedError;
   @override
   String get bookPageUrl => throw _privateConstructorUsedError;
+  @override
+  String get libPageUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ShowLibraryCopyWith<_ShowLibrary> get copyWith =>

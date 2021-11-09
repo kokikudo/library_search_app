@@ -52,24 +52,6 @@ ThemeData _buildTheme(bool isLight) {
     textTheme: base.textTheme
         .copyWith()
         .apply(displayColor: secondary, bodyColor: secondary),
-    chipTheme: base.chipTheme.copyWith(
-        side: BorderSide(width: 1, color: secondary),
-        backgroundColor: primary,
-        //押されてない時の背景色
-        disabledColor: Colors.grey,
-        //無効時の背景色
-        selectedColor: primary,
-        //押されてる時の背景色
-        checkmarkColor: secondary,
-        //チェックマークの色
-        secondarySelectedColor: secondary,
-        //？
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        labelStyle: TextStyle(color: secondary),
-        //押されてない時のラベル
-        secondaryLabelStyle: TextStyle(color: primary),
-        //?
-        brightness: Brightness.light),
   );
 }
 

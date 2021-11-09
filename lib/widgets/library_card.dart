@@ -1,10 +1,10 @@
 // package
 import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // freezed
 import '../main.dart';
@@ -64,13 +64,20 @@ class LibraryCard extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
+                  '〒${lib.post}\n${lib.address}',
+                  textAlign: TextAlign.start,
+                  style: textTheme.caption,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                addVerticalEmptySpace(5),
+                Text(
                   lib.name,
                   style: textTheme.headline6,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 addVerticalEmptySpace(20),
-                LibStatusWidgetBar(lib: lib),
+                LibStatusBar(lib: lib),
                 addVerticalEmptySpace(10),
                 Icon(Icons.expand_more),
               ],
@@ -80,21 +87,22 @@ class LibraryCard extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
+                  '〒${lib.post}\n${lib.address}',
+                  textAlign: TextAlign.start,
+                  style: textTheme.caption,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                addVerticalEmptySpace(5),
+                Text(
                   lib.name,
                   style: textTheme.headline6,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 addVerticalEmptySpace(20),
-                LibStatusWidgetBar(lib: lib),
+                LibStatusBar(lib: lib),
                 addVerticalEmptySpace(20),
-                Text(
-                  '〒${lib.post}\n${lib.address}',
-                  textAlign: TextAlign.start,
-                ),
-                addVerticalEmptySpace(20),
-
-                ButtonInLibCard(
+                CardButton(
                   text: 'Google Map',
                   icon: Icon(Icons.map),
                   lib: lib,
@@ -106,11 +114,17 @@ class LibraryCard extends HookWidget {
                         textAlign: TextAlign.center,
                         style: textTheme.caption,
                       )
-                    : ButtonInLibCard(
-                        text: '予約サイトに移動',
+                    : CardButton(
+                        text: '予約する',
                         icon: Icon(Icons.launch),
                         lib: lib,
                       ),
+                addVerticalEmptySpace(20),
+                CardButton(
+                  text: '図書館の詳細',
+                  icon: Icon(Icons.location_city),
+                  lib: lib,
+                ),
                 addVerticalEmptySpace(20),
               ],
             ),
@@ -132,8 +146,8 @@ class LibraryCard extends HookWidget {
   }
 }
 
-class ButtonInLibCard extends StatelessWidget {
-  const ButtonInLibCard({
+class CardButton extends StatelessWidget {
+  const CardButton({
     Key? key,
     required this.text,
     required this.icon,
@@ -152,31 +166,33 @@ class ButtonInLibCard extends StatelessWidget {
     final urlToGoogleMap =
         'https://www.google.com/maps/search/?api=1&query=$longitude%2C$latitude';
     return NeumorphicButton(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          icon,
+          addHorizonEmptySpace(10),
           Text(
             text,
             style: textTheme.button,
           ),
-          addHorizonEmptySpace(10),
-          icon,
         ],
       ),
       onPressed: () {
         if (icon.icon == Icons.map) {
           launchURL(urlToGoogleMap);
-        } else {
+        } else if (icon.icon == Icons.launch) {
           launchURL(lib.bookPageUrl);
+        } else {
+          launch(lib.libPageUrl);
         }
       },
     );
   }
 }
 
-class LibStatusWidgetBar extends StatelessWidget {
-  const LibStatusWidgetBar({
+class LibStatusBar extends StatelessWidget {
+  const LibStatusBar({
     Key? key,
     required this.lib,
   }) : super(key: key);
@@ -185,13 +201,11 @@ class LibStatusWidgetBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return IntrinsicHeight(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           LibStatusWidget(
-            textTheme: textTheme,
             statusName: '貸出状況',
             status: lib.status,
           ),
@@ -202,7 +216,6 @@ class LibStatusWidgetBar extends StatelessWidget {
             endIndent: 5,
           ),
           LibStatusWidget(
-            textTheme: textTheme,
             statusName: 'ここから',
             status: lib.distance.toStringAsFixed(1),
           ),
@@ -215,12 +228,10 @@ class LibStatusWidgetBar extends StatelessWidget {
 class LibStatusWidget extends HookWidget {
   const LibStatusWidget({
     Key? key,
-    required this.textTheme,
     required this.statusName,
     required this.status,
   }) : super(key: key);
 
-  final TextTheme textTheme;
   final String statusName;
   final String status;
 
@@ -229,6 +240,7 @@ class LibStatusWidget extends HookWidget {
     final _isLightTheme = useProvider(isLightThemeProvider);
     final _normalColor = _isLightTheme ? kcBrown : kcWhite;
     final _accentColor = _isLightTheme ? kcRed : kcPink;
+    final textTheme = Theme.of(context).textTheme;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

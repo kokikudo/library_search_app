@@ -8,9 +8,16 @@ part 'book.g.dart';
 // "Items"["Item"]のなかの各キーを取得する
 @freezed
 class Book with _$Book {
-  factory Book({required String title,
+  factory Book({
+    required String title,
+    required String subTitle,
+    required String author,
     required String isbn,
-    required String largeImageUrl}) = _Book;
+    required String salesDate,
+    required String publisherName,
+    required String itemCaption,
+    required String largeImageUrl,
+  }) = _Book;
 
- factory Book.fromJson(Map<String, Object?> json) => _$BookFromJson(json);
+  factory Book.fromJson(Map<String, Object?> json) => _$BookFromJson(json);
 }

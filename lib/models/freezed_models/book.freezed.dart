@@ -23,11 +23,21 @@ class _$BookTearOff {
 
   _Book call(
       {required String title,
+      required String subTitle,
+      required String author,
       required String isbn,
+      required String salesDate,
+      required String publisherName,
+      required String itemCaption,
       required String largeImageUrl}) {
     return _Book(
       title: title,
+      subTitle: subTitle,
+      author: author,
       isbn: isbn,
+      salesDate: salesDate,
+      publisherName: publisherName,
+      itemCaption: itemCaption,
       largeImageUrl: largeImageUrl,
     );
   }
@@ -43,7 +53,12 @@ const $Book = _$BookTearOff();
 /// @nodoc
 mixin _$Book {
   String get title => throw _privateConstructorUsedError;
+  String get subTitle => throw _privateConstructorUsedError;
+  String get author => throw _privateConstructorUsedError;
   String get isbn => throw _privateConstructorUsedError;
+  String get salesDate => throw _privateConstructorUsedError;
+  String get publisherName => throw _privateConstructorUsedError;
+  String get itemCaption => throw _privateConstructorUsedError;
   String get largeImageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +70,15 @@ mixin _$Book {
 abstract class $BookCopyWith<$Res> {
   factory $BookCopyWith(Book value, $Res Function(Book) then) =
       _$BookCopyWithImpl<$Res>;
-  $Res call({String title, String isbn, String largeImageUrl});
+  $Res call(
+      {String title,
+      String subTitle,
+      String author,
+      String isbn,
+      String salesDate,
+      String publisherName,
+      String itemCaption,
+      String largeImageUrl});
 }
 
 /// @nodoc
@@ -69,7 +92,12 @@ class _$BookCopyWithImpl<$Res> implements $BookCopyWith<$Res> {
   @override
   $Res call({
     Object? title = freezed,
+    Object? subTitle = freezed,
+    Object? author = freezed,
     Object? isbn = freezed,
+    Object? salesDate = freezed,
+    Object? publisherName = freezed,
+    Object? itemCaption = freezed,
     Object? largeImageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -77,9 +105,29 @@ class _$BookCopyWithImpl<$Res> implements $BookCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      subTitle: subTitle == freezed
+          ? _value.subTitle
+          : subTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: author == freezed
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
       isbn: isbn == freezed
           ? _value.isbn
           : isbn // ignore: cast_nullable_to_non_nullable
+              as String,
+      salesDate: salesDate == freezed
+          ? _value.salesDate
+          : salesDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      publisherName: publisherName == freezed
+          ? _value.publisherName
+          : publisherName // ignore: cast_nullable_to_non_nullable
+              as String,
+      itemCaption: itemCaption == freezed
+          ? _value.itemCaption
+          : itemCaption // ignore: cast_nullable_to_non_nullable
               as String,
       largeImageUrl: largeImageUrl == freezed
           ? _value.largeImageUrl
@@ -94,7 +142,15 @@ abstract class _$BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   factory _$BookCopyWith(_Book value, $Res Function(_Book) then) =
       __$BookCopyWithImpl<$Res>;
   @override
-  $Res call({String title, String isbn, String largeImageUrl});
+  $Res call(
+      {String title,
+      String subTitle,
+      String author,
+      String isbn,
+      String salesDate,
+      String publisherName,
+      String itemCaption,
+      String largeImageUrl});
 }
 
 /// @nodoc
@@ -109,7 +165,12 @@ class __$BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = freezed,
+    Object? subTitle = freezed,
+    Object? author = freezed,
     Object? isbn = freezed,
+    Object? salesDate = freezed,
+    Object? publisherName = freezed,
+    Object? itemCaption = freezed,
     Object? largeImageUrl = freezed,
   }) {
     return _then(_Book(
@@ -117,9 +178,29 @@ class __$BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      subTitle: subTitle == freezed
+          ? _value.subTitle
+          : subTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: author == freezed
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
       isbn: isbn == freezed
           ? _value.isbn
           : isbn // ignore: cast_nullable_to_non_nullable
+              as String,
+      salesDate: salesDate == freezed
+          ? _value.salesDate
+          : salesDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      publisherName: publisherName == freezed
+          ? _value.publisherName
+          : publisherName // ignore: cast_nullable_to_non_nullable
+              as String,
+      itemCaption: itemCaption == freezed
+          ? _value.itemCaption
+          : itemCaption // ignore: cast_nullable_to_non_nullable
               as String,
       largeImageUrl: largeImageUrl == freezed
           ? _value.largeImageUrl
@@ -133,20 +214,37 @@ class __$BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Book with DiagnosticableTreeMixin implements _Book {
   _$_Book(
-      {required this.title, required this.isbn, required this.largeImageUrl});
+      {required this.title,
+      required this.subTitle,
+      required this.author,
+      required this.isbn,
+      required this.salesDate,
+      required this.publisherName,
+      required this.itemCaption,
+      required this.largeImageUrl});
 
   factory _$_Book.fromJson(Map<String, dynamic> json) => _$$_BookFromJson(json);
 
   @override
   final String title;
   @override
+  final String subTitle;
+  @override
+  final String author;
+  @override
   final String isbn;
+  @override
+  final String salesDate;
+  @override
+  final String publisherName;
+  @override
+  final String itemCaption;
   @override
   final String largeImageUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Book(title: $title, isbn: $isbn, largeImageUrl: $largeImageUrl)';
+    return 'Book(title: $title, subTitle: $subTitle, author: $author, isbn: $isbn, salesDate: $salesDate, publisherName: $publisherName, itemCaption: $itemCaption, largeImageUrl: $largeImageUrl)';
   }
 
   @override
@@ -155,7 +253,12 @@ class _$_Book with DiagnosticableTreeMixin implements _Book {
     properties
       ..add(DiagnosticsProperty('type', 'Book'))
       ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('subTitle', subTitle))
+      ..add(DiagnosticsProperty('author', author))
       ..add(DiagnosticsProperty('isbn', isbn))
+      ..add(DiagnosticsProperty('salesDate', salesDate))
+      ..add(DiagnosticsProperty('publisherName', publisherName))
+      ..add(DiagnosticsProperty('itemCaption', itemCaption))
       ..add(DiagnosticsProperty('largeImageUrl', largeImageUrl));
   }
 
@@ -165,8 +268,22 @@ class _$_Book with DiagnosticableTreeMixin implements _Book {
         (other is _Book &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.subTitle, subTitle) ||
+                const DeepCollectionEquality()
+                    .equals(other.subTitle, subTitle)) &&
+            (identical(other.author, author) ||
+                const DeepCollectionEquality().equals(other.author, author)) &&
             (identical(other.isbn, isbn) ||
                 const DeepCollectionEquality().equals(other.isbn, isbn)) &&
+            (identical(other.salesDate, salesDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.salesDate, salesDate)) &&
+            (identical(other.publisherName, publisherName) ||
+                const DeepCollectionEquality()
+                    .equals(other.publisherName, publisherName)) &&
+            (identical(other.itemCaption, itemCaption) ||
+                const DeepCollectionEquality()
+                    .equals(other.itemCaption, itemCaption)) &&
             (identical(other.largeImageUrl, largeImageUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.largeImageUrl, largeImageUrl)));
@@ -176,7 +293,12 @@ class _$_Book with DiagnosticableTreeMixin implements _Book {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(subTitle) ^
+      const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(isbn) ^
+      const DeepCollectionEquality().hash(salesDate) ^
+      const DeepCollectionEquality().hash(publisherName) ^
+      const DeepCollectionEquality().hash(itemCaption) ^
       const DeepCollectionEquality().hash(largeImageUrl);
 
   @JsonKey(ignore: true)
@@ -193,7 +315,12 @@ class _$_Book with DiagnosticableTreeMixin implements _Book {
 abstract class _Book implements Book {
   factory _Book(
       {required String title,
+      required String subTitle,
+      required String author,
       required String isbn,
+      required String salesDate,
+      required String publisherName,
+      required String itemCaption,
       required String largeImageUrl}) = _$_Book;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$_Book.fromJson;
@@ -201,7 +328,17 @@ abstract class _Book implements Book {
   @override
   String get title => throw _privateConstructorUsedError;
   @override
+  String get subTitle => throw _privateConstructorUsedError;
+  @override
+  String get author => throw _privateConstructorUsedError;
+  @override
   String get isbn => throw _privateConstructorUsedError;
+  @override
+  String get salesDate => throw _privateConstructorUsedError;
+  @override
+  String get publisherName => throw _privateConstructorUsedError;
+  @override
+  String get itemCaption => throw _privateConstructorUsedError;
   @override
   String get largeImageUrl => throw _privateConstructorUsedError;
   @override
