@@ -2,7 +2,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 //other file
 import 'screens/home.dart';
 import 'utils/constraints.dart';
@@ -18,11 +18,14 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
 
 ///TODO スプラッシュスクリーン作成
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();  // Mobile Ads SDKの初期化
   runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends HookWidget {
   const MyApp({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

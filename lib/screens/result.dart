@@ -1,10 +1,8 @@
 // package
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:library_search_app/models/freezed_models/show_library.dart';
 import 'package:library_search_app/utils/empty_space.dart';
 
 // other file
@@ -19,8 +17,6 @@ enum ShowLibraryFilter {
   only10distance,
 }
 
-//final showLibraryFilerProvider = StateProvider((_) => ShowLibraryFilter.all);
-
 final showLibraryFilerProvider =
     StateNotifierProvider<ShowLibraryFilterNotifier, ShowLibraryFilter>(
         (_) => ShowLibraryFilterNotifier());
@@ -31,26 +27,7 @@ class ShowLibraryFilterNotifier extends StateNotifier<ShowLibraryFilter> {
   void changeState(ShowLibraryFilter newCategory) => state = newCategory;
 }
 
-///フィルタ
-// final filteredProvider = Provider<List<ShowLibrary>>((ref) {
-//   final libs = ref.read(getLibraryProvider);
-//   final filter = ref.watch(showLibraryFilerProvider);
-//
-//   /// フィルタの種類によって返すリストを変える
-//   switch (filter) {
-//     case ShowLibraryFilter.rentableAnd10distance:
-//     case ShowLibraryFilter.rentableAnd5distance:
-//     case ShowLibraryFilter.only10distance:
-//     case ShowLibraryFilter.only5distance:
-//     case ShowLibraryFilter.onlyRentable:
-//     case ShowLibraryFilter.all:
-//   }
-// });
-
 class ResultScreen extends HookWidget {
-  //bool _canGet = false; カテゴリーの選択状態を表すbool値
-  // final String _filter = '';
-
   const ResultScreen({Key? key}) : super(key: key);
 
   @override
@@ -103,4 +80,3 @@ class ResultScreen extends HookWidget {
     );
   }
 }
-

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-3940256099942544/4411468910</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>周辺の図書館を検索するためGPSへのアクセスが必要です。</string>
 	<key>CFBundleDevelopmentRegion</key>

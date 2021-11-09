@@ -47,6 +47,10 @@ class HomeScreen extends HookWidget {
                 context.read(isLightThemeProvider.notifier).changeTheme(),
             icon: Icon(Icons.brightness_6),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.add),
+          ),
         ],
       ),
       resizeToAvoidBottomInset: false,
