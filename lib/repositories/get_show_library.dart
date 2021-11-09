@@ -142,6 +142,8 @@ class GetShowLibraryRepo {
                   distance: lib.distance,
                   geocode: lib.geocode,
                   bookPageUrl: url,
+                  libPageUrl:
+                      'https://calil.jp/library/search?s=${lib.systemid}&k=${lib.libkey}',
                 ),
               );
           showLibraries.addAll(showLibData);

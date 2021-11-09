@@ -14,5 +14,6 @@ class ShowLibrary with _$ShowLibrary {
     required double distance,
     required String geocode,
     required String bookPageUrl,
+    required String libPageUrl,
 }) = _ShowLibrary;
 }

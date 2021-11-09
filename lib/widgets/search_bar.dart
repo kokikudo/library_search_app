@@ -126,7 +126,7 @@ class TitleSearchBar extends HookWidget {
           // 表示する本の情報を更新
           context
               .read(showBookProvider.notifier)
-              .changeState(book.title, book.isbn, book.largeImageUrl);
+              .changeState(book);
         },
       ),
     );
