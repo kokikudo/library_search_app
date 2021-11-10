@@ -4,6 +4,13 @@
 <dict>
     <key>GADApplicationIdentifier</key>
     <string>ca-app-pub-3940256099942544/4411468910</string>
+    <key>SKAdNetworkItems</key>
+      <array>
+        <dict>
+          <key>SKAdNetworkIdentifier</key>
+          <string>cstr6suwn9.skadnetwork</string>
+        </dict>
+      </array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>周辺の図書館を検索するためGPSへのアクセスが必要です。</string>
 	<key>CFBundleDevelopmentRegion</key>

@@ -39,6 +39,7 @@ class HomeScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _showBook = useProvider(showBookProvider);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: NeumorphicAppBar(
         title: Text('本を検索'),
         actions: [
@@ -47,13 +48,8 @@ class HomeScreen extends HookWidget {
                 context.read(isLightThemeProvider.notifier).changeTheme(),
             icon: Icon(Icons.brightness_6),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.add),
-          ),
         ],
       ),
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),

@@ -28,7 +28,7 @@ class ShowBookWidget extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Flexible(
-              flex: 2,
+              flex: 1,
               child: Image(
                 image: NetworkImage(_showBook.largeImageUrl),
                 fit: BoxFit.contain,
