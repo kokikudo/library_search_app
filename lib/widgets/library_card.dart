@@ -28,11 +28,13 @@ class ISBNNotifier extends StateNotifier<String> {
 }
 
 final getLibraryProvider =
-    FutureProvider.autoDispose<List<ShowLibrary>>((ref) async {
-  final _cancelToken = CancelToken();
-  ref.onDispose(() => _cancelToken.cancel());
+    FutureProvider.autoDispose<List<ShowLibrary>?>((ref) async {
   final _isbn = ref.watch(isbnProvider);
-  final _repo = GetShowLibraryRepo(ref.read, _isbn, _cancelToken);
+  final _repo = GetShowLibraryRepo(ref.read, _isbn);
+  ref.onDispose(() {
+    _repo.cancelSearch();
+  });
+
   final _result = await _repo.getShowLibrary();
   ref.maintainState = true;
   return _result;

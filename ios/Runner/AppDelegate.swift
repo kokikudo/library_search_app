@@ -1,6 +1,8 @@
 import UIKit
 import Flutter
 
+import google_mobile_ads
+
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(
@@ -8,6 +10,12 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
+    
+    // AdFactoryを登録
+        let loadingScreenFactory = LoadingScreenNativeAdFactory()
+        FLTGoogleMobileAdsPlugin.registerNativeAdFactory(
+            self, factoryId: "loadingScreen", nativeAdFactory: loadingScreenFactory)
+    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

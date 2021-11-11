@@ -1,4 +1,5 @@
 //Library
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,28 +20,40 @@ class ShowBookWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _showBook = useProvider(showBookProvider);
+    final _size = MediaQuery.of(context).size;
     return Neumorphic(
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 50),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Flexible(
-              flex: 1,
-              child: Image(
-                image: NetworkImage(_showBook.largeImageUrl),
-                fit: BoxFit.contain,
+            // ClipRRect(
+            //   borderRadius: BorderRadius.circular(30),
+            //   child: Image.network(
+            //     _showBook.largeImageUrl,
+            //     height: _size.height / 3,
+            //     width: _size.width / 3,
+            //     fit: BoxFit.scaleDown,
+            //   ),
+            // ),
+            ///TODO IOSで広告を実装する
+            Container(
+              width: _size.width / 3,
+              height: _size.height / 3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(_showBook.largeImageUrl),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ShowBookButton(
-                    iconData: Icons.library_books, label: '詳細'),
-                ShowBookButton(
-                    iconData: Icons.travel_explore, label: '検索'),
+                ShowBookButton(iconData: Icons.library_books, label: '詳細'),
+                ShowBookButton(iconData: Icons.travel_explore, label: '検索'),
               ],
             ),
           ],
@@ -60,8 +73,8 @@ class ShowBookButton extends HookWidget {
   final IconData iconData;
   final String label;
 
-  Future<void> _showBookInfoAlert(Book book,
-      BuildContext context, bool isLight, TextTheme textTheme) async {
+  Future<void> _showBookInfoAlert(Book book, BuildContext context, bool isLight,
+      TextTheme textTheme) async {
     const _calilPageURL = 'https://calil.jp/book/';
     final _size = MediaQuery.of(context).size;
     return showDialog(
@@ -129,7 +142,7 @@ class ShowBookButton extends HookWidget {
         ),
         onPressed: () {
           if (iconData == Icons.library_books) {
-            _showBookInfoAlert(_showBook,context, _isLightTheme, _textTheme);
+            _showBookInfoAlert(_showBook, context, _isLightTheme, _textTheme);
           } else {
             context.read(isbnProvider.notifier).changeState(_showBook.isbn);
             Navigator.push(
