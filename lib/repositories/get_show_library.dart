@@ -2,49 +2,33 @@
 import '../models/freezed_models/show_library.dart';
 import '../models/freezed_models/libraryHasBookData.dart';
 import '../models/freezed_models/library.dart';
-
 // package
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
-
 // apikey and searchLibraryCount
 import '../utils/configurations.dart';
 
 final dioProvider = Provider((_) => Dio());
-final positionProvider = StateNotifierProvider<PositionNotifier, Position?>((
-    _) => PositionNotifier());
-
-class PositionNotifier extends StateNotifier<Position?> {
-  PositionNotifier() : super(null);
-
-  void changeState(newPosition) => state = newPosition;
-}
 
 class GetShowLibraryRepo {
-  GetShowLibraryRepo(this._read, this._isbn);
+  GetShowLibraryRepo(this._read, this._isbn, this._token);
 
   final Reader _read;
   final String _isbn;
-  final CancelToken _token = CancelToken();
+  final CancelToken _token;
   late Position _position;
   late List<Library> _libList;
   late String _systemIdQuery;
   late LibraryHasBookData _completedLoadData;
-  bool _isCancel = false;
 
-  void cancelSearch() {
-    _token.cancel();
-  }
-
-  Future<void> _getLocation() async {
+  Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.low);
     _position = position;
   }
 
-  Future<void> _getLibFromPosition() async {
-    _getLocation();
+  Future<void> getLibFromPosition() async {
     final latitude = _position.latitude;
     final longitude = _position.longitude;
 
@@ -64,7 +48,6 @@ class GetShowLibraryRepo {
     )
         .catchError((cancel) {
       if (CancelToken.isCancel(cancel)) {
-        _isCancel = true;
         print('周辺の図書館の検索を中断');
       } else {
         print('想定外のエラー');
@@ -87,13 +70,7 @@ class GetShowLibraryRepo {
         .join(',');
   }
 
-  Future<void> _getCompletedLoadHasBookData() async {
-    await _getLibFromPosition();
-
-    if (_isCancel) {
-      return;
-    }
-
+  Future<void> getCompletedLoadHasBookData() async {
     _getSystemIdQuery();
     var response = await _getResponse(
       systemIdQuery: _systemIdQuery,
@@ -142,14 +119,10 @@ class GetShowLibraryRepo {
     return LibraryHasBookData.fromJson(result.data!);
   }
 
-  Future<List<ShowLibrary>?> getShowLibrary() async {
+
+  Future<List<ShowLibrary>> getShowLibrary() async {
     // 最終的に表示させる図書館のモデルリスト
     List<ShowLibrary> showLibraries = [];
-    // ロードが完了したレスポンスデータを取得
-    await _getCompletedLoadHasBookData();
-    if (_isCancel) {
-      return null;
-    }
     // データの中身
     final bookData = _completedLoadData.books[_isbn] as Map<String, dynamic>;
     // 各データをもとにモデルを作成しリストに追加する
