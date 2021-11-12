@@ -5,18 +5,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 // freezed
 import '../main.dart';
 import '../models/freezed_models/show_library.dart';
-
 // repo
 import '../repositories/get_show_library.dart';
-
 // other file
 import '../utils/constraints.dart';
 import '../utils/empty_space.dart';
 import '../utils/url_launch.dart';
+
+final cancelTokenProvider = Provider((ref) => CancelToken());
 
 final isbnProvider =
     StateNotifierProvider<ISBNNotifier, String>((_) => ISBNNotifier());
@@ -29,10 +28,21 @@ class ISBNNotifier extends StateNotifier<String> {
 
 final getLibraryProvider =
     FutureProvider.autoDispose<List<ShowLibrary>>((ref) async {
-  final _cancelToken = CancelToken();
-  ref.onDispose(() => _cancelToken.cancel());
   final _isbn = ref.watch(isbnProvider);
-  final _repo = GetShowLibraryRepo(ref.read, _isbn, _cancelToken);
+  final cancelToken = ref.read(cancelTokenProvider);
+  ref.onDispose(() {
+    print('ああああああああ');
+    cancelToken.cancel();
+  });
+  print('検索開始ーーーー');
+  final _repo = GetShowLibraryRepo(ref.read, _isbn, cancelToken);
+  print('getLocation実行');
+  await _repo.getLocation();
+  print('getLibFromPosition実行');
+  await _repo.getLibFromPosition();
+  print('getCompletedLoadHasBookData実行');
+  await _repo.getCompletedLoadHasBookData();
+  print('getShowLibrary実行');
   final _result = await _repo.getShowLibrary();
   ref.maintainState = true;
   return _result;

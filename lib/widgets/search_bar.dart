@@ -13,10 +13,6 @@ import '../screens/home.dart';
 import '../utils/configurations.dart';
 import 'show_book_widget.dart';
 
-
-// ×ボタンで入力中のテキストを消すためのコントローラー
-final textEditingControllerProvider = Provider((_) => TextEditingController());
-
 class TitleSearchBar extends HookWidget {
   const TitleSearchBar({
     Key? key,
@@ -50,7 +46,8 @@ class TitleSearchBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _controller = useProvider(textEditingControllerProvider);
+    final _controller = useTextEditingController();
+    final _focusNude = useFocusNode();
     return Neumorphic(
       style: NeumorphicStyle(
         depth: -5,
@@ -62,6 +59,7 @@ class TitleSearchBar extends HookWidget {
         textFieldConfiguration: TextFieldConfiguration(
           controller: _controller,
           keyboardType: TextInputType.name,
+          focusNode: _focusNude,
           decoration: InputDecoration(
             prefixIcon: Icon(
               Icons.search,
@@ -69,7 +67,10 @@ class TitleSearchBar extends HookWidget {
             ),
             suffixIcon: IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => _controller.clear(),
+              onPressed: () {
+                _controller.clear();
+                _focusNude.requestFocus();
+              }
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

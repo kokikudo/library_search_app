@@ -15,7 +15,6 @@ class EmptyShowBookWidget extends HookWidget {
   Widget build(BuildContext context) {
     final _isLightTheme = useProvider(isLightThemeProvider);
     return Neumorphic(
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 100),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
