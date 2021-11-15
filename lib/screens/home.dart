@@ -52,7 +52,7 @@ class HomeScreen extends HookWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -64,7 +64,12 @@ class HomeScreen extends HookWidget {
                     : const ShowBookWidget(),
               ),
               addVerticalEmptySpace(20),
-              const BannerAdWidget()
+              const BannerAdWidget(),
+              addVerticalEmptySpace(10),
+              const Text(
+                'Supported by Rakuten Developers',
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
