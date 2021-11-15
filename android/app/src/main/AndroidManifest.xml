@@ -18,7 +18,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="library_search_app">
+        android:label="その本、図書館にありますよ？">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
