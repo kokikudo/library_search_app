@@ -27,7 +27,7 @@ class EmptyShowBookWidget extends HookWidget {
                 color: _isLightTheme ? kcDarkBeige : kcLightBlue,
               ),
             ),
-            Flexible(
+            const Flexible(
               flex: 2,
               child: Text(
                   '本のタイトルを入力してください。'),

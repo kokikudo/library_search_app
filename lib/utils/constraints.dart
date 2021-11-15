@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 const kcBeige = Color(0xffF9F4EF);
 const kcDarkBeige = Color(0xffeaddcf);
 const kcBrown = Color(0xff716040);
-const kcToast = Color.fromARGB(30, 2, 8, 38);
 const kcRed = Color(0xffF25042);
 
 // DarkTheme Color

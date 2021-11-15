@@ -1,18 +1,15 @@
 //Library
-import 'dart:io';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+// models
+import '../models/freezed_models/book.dart';
 // other file
 import '../screens/home.dart';
 import '../screens/result.dart';
-import '../utils/configurations.dart';
 import '../utils/constraints.dart';
 import '../main.dart';
-import '../models/freezed_models/book.dart';
 import '../utils/empty_space.dart';
 import 'library_card.dart';
 
@@ -34,7 +31,7 @@ class ButtonInShowBookWidget extends HookWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('本の詳細'),
+            title: const Text('本の詳細'),
             backgroundColor: isLight ? kcBeige : kcBlue,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
@@ -48,20 +45,20 @@ class ButtonInShowBookWidget extends HookWidget {
                   Text('${book.title} ${book.subTitle}'),
                   addVerticalEmptySpace(20),
                   Text('著者', style: textTheme.caption),
-                  Text('${book.author}'),
+                  Text(book.author),
                   addVerticalEmptySpace(20),
                   Text('発売日', style: textTheme.caption),
-                  Text('${book.salesDate}'),
+                  Text(book.salesDate),
                   addVerticalEmptySpace(20),
                   Text('出版社', style: textTheme.caption),
-                  Text('${book.publisherName}'),
+                  Text(book.publisherName),
                   addVerticalEmptySpace(20),
                   Text('説明', style: textTheme.caption),
-                  Text('${book.itemCaption}'),
+                  Text(book.itemCaption),
                   addVerticalEmptySpace(20),
                   OutlinedButton(
                     onPressed: () => launch(_calilPageURL + book.isbn),
-                    child: Text('さらに本の詳細を見る'),
+                    child: const Text('さらに本の詳細を見る'),
                     style: OutlinedButton.styleFrom(
                       primary: isLight ? kcBrown : kcLightBlue,
                       side: BorderSide(
@@ -89,7 +86,7 @@ class ButtonInShowBookWidget extends HookWidget {
             Text(label, style: _textTheme.button),
           ],
         ),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         style: _buttonStyle.copyWith(
           color: _isLightTheme ? kcBeige : kcBlue,
         ),
@@ -101,7 +98,7 @@ class ButtonInShowBookWidget extends HookWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ResultScreen(),
+                builder: (context) => const ResultScreen(),
               ),
             );
           }

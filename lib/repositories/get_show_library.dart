@@ -1,6 +1,8 @@
 // models
+import 'package:flutter/foundation.dart';
+
 import '../models/freezed_models/show_library.dart';
-import '../models/freezed_models/libraryHasBookData.dart';
+import '../models/freezed_models/library_has_book_data.dart';
 import '../models/freezed_models/library.dart';
 // package
 import 'package:geolocator/geolocator.dart';
@@ -29,6 +31,7 @@ class GetShowLibraryRepo {
   }
 
   Future<void> getLibFromPosition() async {
+
     final latitude = _position.latitude;
     final longitude = _position.longitude;
 
@@ -48,9 +51,9 @@ class GetShowLibraryRepo {
     )
         .catchError((cancel) {
       if (CancelToken.isCancel(cancel)) {
-        print('周辺の図書館の検索を中断');
+        debugPrint('周辺の図書館の検索を中断');
       } else {
-        print('想定外のエラー');
+        debugPrint('想定外のエラー');
       }
     });
 
@@ -79,7 +82,7 @@ class GetShowLibraryRepo {
     );
 
     while (response.isOK == 1) {
-      print('再取得開始');
+      debugPrint('再取得開始');
       await Future.delayed(const Duration(seconds: 3));
       response = await _getResponse(session: response.session);
     }
@@ -110,9 +113,9 @@ class GetShowLibraryRepo {
     )
         .catchError((cancel) {
       if (CancelToken.isCancel(cancel)) {
-        print('本の管理状況の取得を中断');
+        debugPrint('本の管理状況の取得を中断');
       } else {
-        print('想定外のエラー');
+        debugPrint('想定外のエラー');
       }
     });
     // モデル化して返却

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'libraryHasBookData.freezed.dart';
+part 'library_has_book_data.freezed.dart';
 
-part 'libraryHasBookData.g.dart';
+part 'library_has_book_data.g.dart';
 
 @freezed
 class LibraryHasBookData with _$LibraryHasBookData {

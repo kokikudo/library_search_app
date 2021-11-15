@@ -14,7 +14,7 @@
         </dict>
       </array>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>周辺の図書館を検索するためGPSへのアクセスが必要です。</string>
+    <string>周辺の図書館を検索するためGPSを使用します。</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
