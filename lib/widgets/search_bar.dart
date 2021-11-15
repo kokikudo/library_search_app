@@ -1,4 +1,4 @@
-// package
+// Library
 import 'package:dio/dio.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
@@ -11,7 +11,6 @@ import '../models/freezed_models/response_from_rakuten.dart';
 // other file
 import '../screens/home.dart';
 import '../utils/configurations.dart';
-import 'show_book_widget.dart';
 
 class TitleSearchBar extends HookWidget {
   const TitleSearchBar({
@@ -66,7 +65,7 @@ class TitleSearchBar extends HookWidget {
               color: Theme.of(context).iconTheme.color,
             ),
             suffixIcon: IconButton(
-              icon: Icon(Icons.close),
+              icon: const Icon(Icons.close),
               onPressed: () {
                 _controller.clear();
                 _focusNude.requestFocus();
@@ -76,7 +75,7 @@ class TitleSearchBar extends HookWidget {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            contentPadding: EdgeInsets.all(20.0),
+            contentPadding: const EdgeInsets.all(20.0),
           ),
         ),
         suggestionsBoxDecoration: SuggestionsBoxDecoration(
@@ -88,7 +87,7 @@ class TitleSearchBar extends HookWidget {
         suggestionsCallback: (title) async {
           // 空白の時は空白のTextを返す
           if (title.isEmpty) {
-            return [Text('')];
+            return [const Text('')];
           }
 
           // 取得
@@ -102,7 +101,7 @@ class TitleSearchBar extends HookWidget {
         itemBuilder: (_, bookData) {
           // 空白の場合は空白Textを返す
           if (bookData is Text) {
-            return Text('');
+            return const Text('');
           }
 
           // 型を指定しListTileとして表示

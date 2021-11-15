@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:library_search_app/models/freezed_models/library.dart';
-import 'package:library_search_app/models/freezed_models/libraryHasBookData.dart';
+import 'package:library_search_app/models/freezed_models/library_has_book_data.dart';
 import 'package:library_search_app/utils/configurations.dart';
 import 'package:library_search_app/models/freezed_models/show_library.dart';
 
@@ -70,7 +71,7 @@ Future<LibraryHasBookData> _getResponseHasBook(
       token: token);
 
   while (response.isOK == 1) {
-    print('continue = 1 のため再取得開始');
+    debugPrint('continue = 1 のため再取得開始');
     await Future.delayed(const Duration(seconds: 3));
     response = await _get(session: response.session, token: token);
   }
@@ -81,15 +82,15 @@ void main() {
   test('位置情報から図書館データ取得', () async {
     final result = await _getLibFromPosition();
     for (var lib in result) {
-      print(lib);
-      print('-------');
+      debugPrint(lib.address);
+      debugPrint('-------');
     }
   });
 
   test('システムIDのクエリ取得', () async {
     final result = await _getLibFromPosition();
     final idList = _getSystemIdQuery(result);
-    print(idList);
+    debugPrint(idList);
   });
 
   test('表示させる図書館を取得', () async {
@@ -98,11 +99,11 @@ void main() {
     final token = CancelToken();
     final result = await _getResponseHasBook(idList, isbn, token);
 
-    print(result.session);
+    debugPrint(result.session);
 
     List<ShowLibrary> showLibraries = _getShowLibrary(result, libraries);
     for (var lib in showLibraries) {
-      print('''
+      debugPrint('''
        --------------
        ${lib.name}:
        ${lib.address}:

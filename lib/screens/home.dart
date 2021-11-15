@@ -41,12 +41,12 @@ class HomeScreen extends HookWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: NeumorphicAppBar(
-        title: Text('本を検索'),
+        title: const Text('本を検索'),
         actions: [
           IconButton(
             onPressed: () =>
                 context.read(isLightThemeProvider.notifier).changeTheme(),
-            icon: Icon(Icons.brightness_6),
+            icon: const Icon(Icons.brightness_6),
           ),
         ],
       ),
@@ -56,15 +56,15 @@ class HomeScreen extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TitleSearchBar(),
+              const TitleSearchBar(),
               addVerticalEmptySpace(20),
               Expanded(
                 child: _showBook.title.isEmpty
-                    ? EmptyShowBookWidget()
-                    : ShowBookWidget(),
+                    ? const EmptyShowBookWidget()
+                    : const ShowBookWidget(),
               ),
               addVerticalEmptySpace(20),
-              BannerAdWidget()
+              const BannerAdWidget()
             ],
           ),
         ),

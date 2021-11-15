@@ -12,8 +12,8 @@ class NativeAdWidget extends StatelessWidget {
     return NativeAd(
       buildLayout: mediumAdTemplateLayoutBuilder,
       height: 320,
-      loading: CircularProgressIndicator(),
-      error: Text('広告のロードに失敗しました。'),
+      loading: const CircularProgressIndicator(),
+      error: const Text('広告のロードに失敗しました。'),
       icon: AdImageView(size: 40),
       builder: (context, child) {
         return Material(
@@ -22,7 +22,7 @@ class NativeAdWidget extends StatelessWidget {
         );
       },
       headline: AdTextView(
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -30,7 +30,7 @@ class NativeAdWidget extends StatelessWidget {
         maxLines: 1,
       ),
       body: AdTextView(
-          style: TextStyle(color: Colors.black), maxLines: 1),
+          style: const TextStyle(color: Colors.black), maxLines: 1),
       media: AdMediaView(
         height: 170,
         width: MATCH_PARENT,
@@ -39,17 +39,17 @@ class NativeAdWidget extends StatelessWidget {
         width: WRAP_CONTENT,
         text: 'Ad',
         decoration: AdDecoration(
-          border: BorderSide(color: Colors.green, width: 2),
+          border: const BorderSide(color: Colors.green, width: 2),
           borderRadius: AdBorderRadius.all(16.0),
         ),
-        style: TextStyle(color: Colors.green),
-        padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
+        style: const TextStyle(color: Colors.green),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
       ),
       button: AdButtonView(
         elevation: 18,
         decoration: AdDecoration(backgroundColor: Colors.blue),
         height: MATCH_PARENT,
-        textStyle: TextStyle(color: Colors.white),
+        textStyle: const TextStyle(color: Colors.white),
       ),
       ratingBar: AdRatingBarView(starsColor: Colors.white),
     );

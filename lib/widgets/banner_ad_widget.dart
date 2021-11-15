@@ -17,8 +17,8 @@ class BannerAdWidget extends StatelessWidget {
           child: child,
         );
       },
-      loading: Center(child: CircularProgressIndicator()),
-      error: Text('広告のロードに失敗しました。'),
+      loading: const Center(child: CircularProgressIndicator()),
+      error: const Text('広告のロードに失敗しました。'),
     );
   }
 }

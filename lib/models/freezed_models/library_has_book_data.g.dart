@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'libraryHasBookData.dart';
+part of 'library_has_book_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

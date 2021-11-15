@@ -1,21 +1,22 @@
-// package
+// Library
 import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 // freezed
 import '../main.dart';
 import '../models/freezed_models/show_library.dart';
+
 // repo
 import '../repositories/get_show_library.dart';
+
 // other file
 import '../utils/constraints.dart';
 import '../utils/empty_space.dart';
 import '../utils/url_launch.dart';
-
-final cancelTokenProvider = Provider((ref) => CancelToken());
 
 final isbnProvider =
     StateNotifierProvider<ISBNNotifier, String>((_) => ISBNNotifier());
@@ -29,20 +30,12 @@ class ISBNNotifier extends StateNotifier<String> {
 final getLibraryProvider =
     FutureProvider.autoDispose<List<ShowLibrary>>((ref) async {
   final _isbn = ref.watch(isbnProvider);
-  final cancelToken = ref.read(cancelTokenProvider);
-  ref.onDispose(() {
-    print('ああああああああ');
-    cancelToken.cancel();
-  });
-  print('検索開始ーーーー');
-  final _repo = GetShowLibraryRepo(ref.read, _isbn, cancelToken);
-  print('getLocation実行');
+  final _cancelToken = CancelToken();
+  ref.onDispose(_cancelToken.cancel);
+  final _repo = GetShowLibraryRepo(ref.read, _isbn, _cancelToken);
   await _repo.getLocation();
-  print('getLibFromPosition実行');
   await _repo.getLibFromPosition();
-  print('getCompletedLoadHasBookData実行');
   await _repo.getCompletedLoadHasBookData();
-  print('getShowLibrary実行');
   final _result = await _repo.getShowLibrary();
   ref.maintainState = true;
   return _result;
@@ -66,7 +59,7 @@ class LibraryCard extends HookWidget {
           scrollOnExpand: true,
           scrollOnCollapse: false,
           child: ExpandablePanel(
-            theme: ExpandableThemeData(
+            theme: const ExpandableThemeData(
               tapBodyToCollapse: true,
               tapBodyToExpand: true,
             ),
@@ -89,7 +82,7 @@ class LibraryCard extends HookWidget {
                 addVerticalEmptySpace(20),
                 LibStatusBar(lib: lib),
                 addVerticalEmptySpace(10),
-                Icon(Icons.expand_more),
+                const Icon(Icons.expand_more),
               ],
             ),
             expanded: Column(
@@ -114,7 +107,7 @@ class LibraryCard extends HookWidget {
                 addVerticalEmptySpace(20),
                 CardButton(
                   text: 'Google Map',
-                  icon: Icon(Icons.map),
+                  icon: const Icon(Icons.map),
                   lib: lib,
                 ),
                 addVerticalEmptySpace(20),
@@ -126,13 +119,13 @@ class LibraryCard extends HookWidget {
                       )
                     : CardButton(
                         text: '予約する',
-                        icon: Icon(Icons.launch),
+                        icon: const Icon(Icons.launch),
                         lib: lib,
                       ),
                 addVerticalEmptySpace(20),
                 CardButton(
                   text: '図書館の詳細',
-                  icon: Icon(Icons.location_city),
+                  icon: const Icon(Icons.location_city),
                   lib: lib,
                 ),
                 addVerticalEmptySpace(20),
@@ -140,8 +133,8 @@ class LibraryCard extends HookWidget {
             ),
             builder: (_, collapsed, expanded) {
               return Neumorphic(
-                margin: EdgeInsets.only(top: 20),
-                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Expandable(
                   collapsed: collapsed,
                   expanded: expanded,
@@ -176,7 +169,7 @@ class CardButton extends StatelessWidget {
     final urlToGoogleMap =
         'https://www.google.com/maps/search/?api=1&query=$longitude%2C$latitude';
     return NeumorphicButton(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -219,7 +212,7 @@ class LibStatusBar extends StatelessWidget {
             statusName: '貸出状況',
             status: lib.status,
           ),
-          VerticalDivider(
+          const VerticalDivider(
             color: kcBrown,
             thickness: 1,
             indent: 5,

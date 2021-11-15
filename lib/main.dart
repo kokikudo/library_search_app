@@ -21,14 +21,15 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
   void changeTheme() => state = !state;
 }
 
-//53733D55-931D43F3-AEE7-1656F69DCA4B
-///TODO スプラッシュスクリーン作成
 void main() async {
+  // main内で非同期処理をする時に入れる
+  WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, //縦固定
   ]);
 
-  WidgetsFlutterBinding.ensureInitialized();
+
   await MobileAds.initialize(
     bannerAdUnitId: Platform.isAndroid ? bannerAdIdAndroid : bannerAdIdIOS,
     nativeAdUnitId:
@@ -57,7 +58,7 @@ class MyApp extends HookWidget {
       materialDarkTheme: _buildTheme(_isLightTheme),
       theme: _buildNeumorphicTheme(_isLightTheme),
       darkTheme: _buildNeumorphicTheme(_isLightTheme),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
@@ -80,7 +81,7 @@ ThemeData _buildTheme(bool isLight) {
 NeumorphicThemeData _buildNeumorphicTheme(bool isLight) {
   final primary = isLight ? kcBeige : kcBlue;
   final secondary = isLight ? kcBrown : kcWhite;
-  final base = isLight ? NeumorphicThemeData() : NeumorphicThemeData.dark();
+  final base = isLight ? const NeumorphicThemeData() : const NeumorphicThemeData.dark();
   return base.copyWith(
     baseColor: primary,
     lightSource: LightSource.topLeft,
@@ -95,7 +96,7 @@ NeumorphicThemeData _buildNeumorphicTheme(bool isLight) {
     buttonStyle: NeumorphicStyle(
       color: primary,
       shape: NeumorphicShape.convex,
-      boxShape: NeumorphicBoxShape.stadium(),
+      boxShape: const NeumorphicBoxShape.stadium(),
       depth: isLight ? 7 : 4,
       intensity: isLight ? 0.7 : 0.5,
       lightSource: LightSource.topLeft,

@@ -1,18 +1,10 @@
-//Library
-import 'package:flutter/material.dart';
+// Library
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:library_search_app/models/freezed_models/book.dart';
-import 'package:library_search_app/utils/empty_space.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // other file
 import '../screens/home.dart';
-import '../screens/result.dart';
-import '../utils/constraints.dart';
-import '../main.dart';
-import 'library_card.dart';
 import 'button_in_show_book_widget.dart';
 
 class ShowBookWidget extends HookWidget {
@@ -52,9 +44,9 @@ class ShowBookWidget extends HookWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ButtonInShowBookWidget(iconData: Icons.library_books, label: '詳細'),
-                ButtonInShowBookWidget(iconData: Icons.travel_explore, label: '検索'),
+              children: const [
+                 ButtonInShowBookWidget(iconData: Icons.library_books, label: '詳細'),
+                 ButtonInShowBookWidget(iconData: Icons.travel_explore, label: '検索'),
               ],
             ),
           ],

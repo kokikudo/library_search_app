@@ -15,63 +15,50 @@ class ResultScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _showLibrary = useProvider(getLibraryProvider);
-    final _cancelToken = useProvider(cancelTokenProvider);
 
     return Scaffold(
       appBar: NeumorphicAppBar(
         title: _showLibrary.when(
-          data: (_) => Text('検索結果'),
-          loading: () => Text(''),
-          error: (_, stack) => Text('検索結果'),
+          data: (_) => const Text('検索結果'),
+          loading: () => const Text(''),
+          error: (_, stack) => const Text('検索結果'),
         ),
       ),
       body: SafeArea(
         child: _showLibrary.when(
-          data: (libs) =>
-          libs.isEmpty
-              ? Center(
-            child: Text('周辺の図書館にはありませんでした。'),
-          )
+          data: (libs) => libs.isEmpty
+              ? const Center(child: Text('周辺の図書館にはありませんでした。'))
               : Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  children: libs.map((lib) {
-                    return LibraryCard(lib: lib);
-                  }).toList(),
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: libs.map((lib) {
+                          return LibraryCard(lib: lib);
+                        }).toList(),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+          loading: () => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SpinKitPouringHourGlassRefined(
+                  size: 100, color: Theme.of(context).iconTheme.color!),
+              addVerticalEmptySpace(20),
+              Text('検索中...', style: Theme.of(context).textTheme.headline5),
+              addVerticalEmptySpace(10),
+              const Text('少し時間がかかる場合がございます。'),
+              addVerticalEmptySpace(20),
+              const NativeAdWidget(),
             ],
           ),
-          loading: () =>
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SpinKitPouringHourGlassRefined(
-                      size: 100, color: Theme
-                      .of(context)
-                      .iconTheme
-                      .color!),
-                  addVerticalEmptySpace(20),
-                  Text('検索中...', style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline5),
-                  addVerticalEmptySpace(10),
-                  Text('少し時間がかかる場合がございます。'),
-                  addVerticalEmptySpace(20),
-                  NativeAdWidget(),
-                ],
-              ),
-          error: (err, stack) =>
-              Center(
-                child: Text('エラーが発生しました。時間をおいて再度お試しください。'),
-              ),
+          error: (err, stack) => const Center(
+            child: Text('エラーが発生しました。時間をおいて再度お試しください。'),
+          ),
         ),
       ),
     );
   }
 }
-
