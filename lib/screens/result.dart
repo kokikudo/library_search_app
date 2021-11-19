@@ -51,7 +51,12 @@ class ResultScreen extends HookWidget {
               addVerticalEmptySpace(10),
               const Text('少し時間がかかる場合がございます。'),
               addVerticalEmptySpace(20),
-              const NativeAdWidget(),
+              ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxHeight: 320,
+                    maxWidth: 400,
+                  ),
+                  child: const NativeAdWidget()),
             ],
           ),
           error: (err, stack) => const Center(

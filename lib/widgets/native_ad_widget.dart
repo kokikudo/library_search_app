@@ -1,17 +1,30 @@
 // package
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
 
-class NativeAdWidget extends StatelessWidget {
+final nativeAdControllerProvider = Provider.autoDispose((ref) {
+  final controller = NativeAdController();
+  ref.onDispose(() => controller.dispose());
+
+  controller.load();
+
+  return controller;
+});
+
+class NativeAdWidget extends HookWidget {
   const NativeAdWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = useProvider(nativeAdControllerProvider);
     return NativeAd(
+      controller: controller,
       buildLayout: mediumAdTemplateLayoutBuilder,
-      height: 320,
+
       loading: const CircularProgressIndicator(),
       error: const Text('広告のロードに失敗しました。'),
       icon: AdImageView(size: 40),
