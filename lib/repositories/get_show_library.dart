@@ -31,7 +31,6 @@ class GetShowLibraryRepo {
   }
 
   Future<void> getLibFromPosition() async {
-
     final latitude = _position.latitude;
     final longitude = _position.longitude;
 

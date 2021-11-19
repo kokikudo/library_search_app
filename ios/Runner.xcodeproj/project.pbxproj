@@ -16,13 +16,12 @@
 		AE331BF75BFBF84E28470465 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7252795C3C60E166475DF20 /* Pods_Runner.framework */; };
 		FD53C40B272FC33000514C9A /* Info-Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD53C409272FC33000514C9A /* Info-Release.plist */; };
 		FD53C40C272FC33000514C9A /* Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD53C40A272FC33000514C9A /* Info-Debug.plist */; };
-		FDE22637273CB14800F948BC /* LoadingScreenNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDE22636273CB14800F948BC /* LoadingScreenNativeAdView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
@@ -51,7 +50,6 @@
 		CDF7B4A591DEC7DEBBC60E5B /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		FD53C409272FC33000514C9A /* Info-Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Release.plist"; sourceTree = "<group>"; };
 		FD53C40A272FC33000514C9A /* Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Debug.plist"; sourceTree = "<group>"; };
-		FDE22636273CB14800F948BC /* LoadingScreenNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingScreenNativeAdView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +105,6 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				FDE22636273CB14800F948BC /* LoadingScreenNativeAdView.xib */,
 				FD53C40A272FC33000514C9A /* Info-Debug.plist */,
 				FD53C409272FC33000514C9A /* Info-Release.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -201,7 +198,6 @@
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				FD53C40C272FC33000514C9A /* Info-Debug.plist in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-				FDE22637273CB14800F948BC /* LoadingScreenNativeAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,16 +21,6 @@ class ShowBookWidget extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // ClipRRect(
-            //   borderRadius: BorderRadius.circular(30),
-            //   child: Image.network(
-            //     _showBook.largeImageUrl,
-            //     height: _size.height / 3,
-            //     width: _size.width / 3,
-            //     fit: BoxFit.scaleDown,
-            //   ),
-            // ),
-
             Container(
               width: _size.width / 3,
               height: _size.height / 3,
