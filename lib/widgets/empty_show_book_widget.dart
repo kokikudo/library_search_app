@@ -2,6 +2,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 // other file
 import '../utils/constraints.dart';
 import '../main.dart';
@@ -19,6 +20,7 @@ class EmptyShowBookWidget extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Flexible(
               flex: 1,
@@ -30,7 +32,9 @@ class EmptyShowBookWidget extends HookWidget {
             const Flexible(
               flex: 2,
               child: Text(
-                  '本のタイトルを入力してください。'),
+                '本のタイトルを入力してください。',
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),

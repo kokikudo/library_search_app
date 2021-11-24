@@ -1,6 +1,5 @@
 // package
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,6 +20,8 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
   void changeTheme() => state = !state;
 }
 
+///TODO ユーザー追跡の警告文が表示されてない
+
 void main() async {
   // main内で非同期処理をする時に入れる
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,6 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, //縦固定
   ]);
-
 
   await MobileAds.initialize(
     bannerAdUnitId: Platform.isAndroid ? bannerAdIdAndroid : bannerAdIdIOS,
@@ -41,6 +41,7 @@ void main() async {
   ]);
 
   await MobileAds.requestTrackingAuthorization();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

@@ -2,6 +2,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
 // models
 import '../models/freezed_models/book.dart';
@@ -54,14 +55,22 @@ class HomeScreen extends HookWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const TitleSearchBar(),
-              addVerticalEmptySpace(20),
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 500,
+                ),
+                child: const TitleSearchBar(),
+              ),
               Expanded(
-                child: _showBook.title.isEmpty
-                    ? const EmptyShowBookWidget()
-                    : const ShowBookWidget(),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 500,
+                  ),
+                  child: _showBook.title.isEmpty
+                      ? const EmptyShowBookWidget()
+                      : const ShowBookWidget(),
+                ),
               ),
               addVerticalEmptySpace(20),
               const BannerAdWidget(),

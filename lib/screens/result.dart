@@ -1,4 +1,5 @@
 // package
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,17 +29,25 @@ class ResultScreen extends HookWidget {
         child: _showLibrary.when(
           data: (libs) => libs.isEmpty
               ? const Center(child: Text('周辺の図書館にはありませんでした。'))
-              : Column(
-                  children: [
-                    Expanded(
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        children: libs.map((lib) {
-                          return LibraryCard(lib: lib);
-                        }).toList(),
-                      ),
+              : Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 500,
                     ),
-                  ],
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            children: libs.map((lib) {
+                              return LibraryCard(lib: lib);
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
           loading: () => Column(
             mainAxisAlignment: MainAxisAlignment.center,
