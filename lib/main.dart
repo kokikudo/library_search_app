@@ -1,6 +1,5 @@
 // package
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,7 +28,6 @@ void main() async {
     DeviceOrientation.portraitUp, //縦固定
   ]);
 
-
   await MobileAds.initialize(
     bannerAdUnitId: Platform.isAndroid ? bannerAdIdAndroid : bannerAdIdIOS,
     nativeAdUnitId:
@@ -41,6 +39,7 @@ void main() async {
   ]);
 
   await MobileAds.requestTrackingAuthorization();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

@@ -1,4 +1,4 @@
-// Library
+// package
 import 'package:dio/dio.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_neumorphic_null_safety/flutter_neumorphic.dart';
@@ -19,6 +19,7 @@ class TitleSearchBar extends HookWidget {
 
   // 候補の本をモデル化して返却
   Future<BookList> _getBooks(String title) async {
+
     const url =
         'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404';
     final Map<String, Object?> queryParameters = {
@@ -40,6 +41,7 @@ class TitleSearchBar extends HookWidget {
           )
           .toList(growable: false), // リストにしてそれをモデル化
     );
+
     return books;
   }
 
@@ -57,7 +59,6 @@ class TitleSearchBar extends HookWidget {
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
           controller: _controller,
-          keyboardType: TextInputType.name,
           focusNode: _focusNude,
           decoration: InputDecoration(
             prefixIcon: Icon(
@@ -85,13 +86,16 @@ class TitleSearchBar extends HookWidget {
 
         // 候補を取得
         suggestionsCallback: (title) async {
+          print('入力された値: $title');
           // 空白の時は空白のTextを返す
           if (title.isEmpty) {
             return [const Text('')];
           }
 
           // 取得
+          print('検索開始');
           final bookList = await _getBooks(title);
+          print('検索完了');
 
           // データの中身を返す
           return bookList.books;
@@ -101,7 +105,7 @@ class TitleSearchBar extends HookWidget {
         itemBuilder: (_, bookData) {
           // 空白の場合は空白Textを返す
           if (bookData is Text) {
-            return const Text('');
+            return const SizedBox();
           }
 
           // 型を指定しListTileとして表示
