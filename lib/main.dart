@@ -20,8 +20,6 @@ class IsLightThemeNotifier extends StateNotifier<bool> {
   void changeTheme() => state = !state;
 }
 
-///TODO ユーザー追跡の警告文が表示されてない
-
 void main() async {
   // main内で非同期処理をする時に入れる
   WidgetsFlutterBinding.ensureInitialized();
